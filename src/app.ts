@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-redeclare */
 showHello('greeting', 'TypeScript');
 
@@ -39,6 +40,8 @@ interface Librarian extends Person {
 }
 
 type BookProperties = keyof Book;
+type PersonBook = Person & Book;
+type BookOrUndefined = Book | undefined;
 
 function getAllBooks(): ReadonlyArray<Book>{
     const books: readonly Book[] = <const>[
@@ -110,7 +113,7 @@ createCustomer('name', 12, 'city');
 // console.log(getBookTitlesByCategory());
 // logFirstAvailable();
 
-function getBookByID(id: number): Book | undefined{
+function getBookByID(id: number): BookOrUndefined{
     const books = getAllBooks();
     return books.find(book => book.id === id);
 }
@@ -224,3 +227,90 @@ function getProperty(book: Book, prop: BookProperties): any {
 // console.log(getProperty(myBook, 'title'));
 // console.log(getProperty(myBook, 'markDamaged'));
 // console.log(getProperty(myBook, 'isbn'));
+
+/** Task 5 */
+abstract class ReferenceItem {
+    // title: string;
+    // year: number;
+
+    // constructor (newTitle: string, newYear: number) {
+    //     console.log('Creating a new ReferenceItem...');
+    //     this.title = newTitle;
+    //     this.year = newYear;
+    // }
+
+    #id: number;
+    private _publisher: string;
+    static department: string = 'Classical Literature';
+    get publisher(): string {
+        return this._publisher.toUpperCase();
+    }
+    set publisher(newPublisher: string) {
+        this._publisher = newPublisher;
+    }
+
+    constructor (id: number, public title: string, protected year: number) {
+        console.log('Creating a new ReferenceItem...');
+        this.#id = id;
+    }
+
+    getID(): number {
+        return this.#id;
+    }
+
+    printItem(): void {
+        console.log(`${this.title} was published in ${this.year}`);
+        console.log(ReferenceItem.department);
+    }
+
+    abstract printCitation(): void;
+}
+
+// const ref: ReferenceItem = new ReferenceItem(1, 'TypeScript', 2021);
+// ref.printItem();
+// ref.publisher = 'Publisher';
+// console.log(ref.publisher);
+// console.log(ref.detID());
+
+class Encyclopedia extends ReferenceItem {
+    constructor(id: number, title: string, year: number, public edition: number) {
+        super(id, title, year);
+    }
+
+    printItem(): void {
+        super.printItem();
+        console.log(`Edition: ${this.edition} (${this.year})`);
+    }
+
+    printCitation(): void {
+        console.log(`${this.title} - ${this.year}`)
+    }
+}
+
+const refBook = new Encyclopedia(1, 'TypeScript', 2021, 3);
+// console.log(refBook);
+// refBook.printItem();
+// refBook.printCitation();
+
+class UniversityLibrarian implements Librarian {
+    name: string;
+    email: string;
+    department: string;
+
+    assistCustomer(custName: string): void {
+        console.log(`${this.name} is assisting ${custName}`);
+    }
+}
+// const favoriteLibrarian: Librarian = new UniversityLibrarian();
+// favoriteLibrarian.name = 'Anna';
+// favoriteLibrarian.assistCustomer('Boris');
+
+const personBook: PersonBook = {
+    id: 1,
+    name: 'Anna',
+    author: 'Anna',
+    available: false,
+    category: Category.JavaScript,
+    email: 'anna@email.com',
+    title: 'JavaScript'
+}
