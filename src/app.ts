@@ -1,12 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 
-import { createCustomer, createCustomerID, сheckoutBooks } from "./functions";
-import { Author, Book, Librarian, Logger} from "./interfaces";
-import { PersonBook } from "./types";
-import { RefBook, ReferenceItem, UniversityLibrarian } from "./classes";
+import { createCustomer, createCustomerID, сheckoutBooks, purge, getProperty } from "./functions";
+import { Author, Book, Librarian, Logger, Magazine} from "./interfaces";
+import { PersonBook, BookRequiredFields, UpdatedBook, СreateCustomerFunctionType } from "./types";
+import { RefBook, Shelf, ReferenceItem, UniversityLibrarian } from "./classes/";
 import { Category } from "./enums";
 
-import type { Library } from "./classes"
+import type { Library } from "./classes/"
 
 /* eslint-disable no-redeclare */
 showHello('greeting', 'TypeScript');
@@ -84,42 +84,42 @@ const myBooks = сheckoutBooks('Ann', 1, 2, 4);
 
 /** Task 04 */
 
-const myBook: Book = {
-    id: 5,
-    title: 'Colors, Backgrounds, and Gradients',
-    author: 'Eric A. Meyer',
-    available: true,
-    category: Category.CSS,
-    pages: 200,
-    // year: 2015,
-    // copies: 3,
-    markDamaged: (reason: string) => `Damaged: ${reason}`
-}
+// const myBook: Book = {
+//     id: 5,
+//     title: 'Colors, Backgrounds, and Gradients',
+//     author: 'Eric A. Meyer',
+//     available: true,
+//     category: Category.CSS,
+//     pages: 200,
+//     // year: 2015,
+//     // copies: 3,
+//     markDamaged: (reason: string) => `Damaged: ${reason}`
+// }
 // printBook(myBook);
 // console.log(myBook.markDamaged('missing back cover'));
 
-const logDamage: Logger = (reason: string) => `Damaged: ${reason}`;
+// const logDamage: Logger = (reason: string) => `Damaged: ${reason}`;
 // console.log(logDamage('missing back cover'));
 
-const favoriteAuthor: Author = {
-    name: 'Anna',
-    email: 'anna@mail.com',
-    numBooksPublished: 3
-};
-const favoriteLibrarian: Librarian = {
-    name: 'Boris',
-    email: 'boris@mail.com',
-    department: 'Classical',
-    assistCustomer: (custName) => {
-        console.log(custName);
-    }
-};
+// const favoriteAuthor: Author = {
+//     name: 'Anna',
+//     email: 'anna@mail.com',
+//     numBooksPublished: 3
+// };
+// const favoriteLibrarian: Librarian = {
+//     name: 'Boris',
+//     email: 'boris@mail.com',
+//     department: 'Classical',
+//     assistCustomer: (custName) => {
+//         console.log(custName);
+//     }
+// };
 
-const offer: any = {
-    book: {
-        title: 'Essential TypeScript',
-    },
-};
+// const offer: any = {
+//     book: {
+//         title: 'Essential TypeScript',
+//     },
+// };
 // console.log(offer.magazine);
 // console.log(offer.magazine?.getTitle());
 // console.log(offer.book.getTitle?.());
@@ -219,3 +219,48 @@ lib = {
     name: 'Anna',
     address: 'Address'
 };
+
+/** Task 7 */
+const inventory: Book[] = [
+    { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: Category.Software },
+    { id: 11, title: 'Code Complete', author: 'Steve McConnell', available: true, category: Category.Software },
+    { id: 12, title: '8-Bit Graphics with Cobol', author: 'A. B.', available: true, category: Category.Software },
+    { id: 13, title: 'Cool autoexec.bat Scripts!', author: 'C. D.', available: true, category: Category.Software }
+];
+// console.log(purge<Book>(inventory));
+// console.log(purge([1,2,3,4,5]));
+const bookShelf = new Shelf<Book>();
+inventory.forEach(book => bookShelf.add(book));
+console.log(bookShelf.getFirst());
+
+const magazines: Magazine[] = [
+    { title: 'Programming Language Monthly', publisher: 'Code Mags' },
+    { title: 'Literary Fiction Quarterly', publisher: 'College Press' },
+    { title: 'Five Points', publisher: 'GSU' }
+]
+const magazineShelf = new Shelf<Magazine>();
+magazines.forEach(magazine => magazineShelf.add(magazine));
+console.log(magazineShelf.getFirst());
+
+//7.03
+// magazineShelf.printTitles();
+// console.log(magazineShelf.find('Five Points'));
+
+// console.log(getProperty(magazines[0], 'title'));
+
+//7.04
+// const book: BookRequiredFields = {
+//     author: 'Anna',
+//     available: false,
+//     category: Category.CSS,
+//     id: 1,
+//     markDamaged: null,
+//     pages: 200,
+//     title: 'unknown'
+// }
+// const b: UpdatedBook = {
+//     id: 1,
+//     author: 'Boris'
+// }
+// const params: Parameters<СreateCustomerFunctionType> = ['Anna'];
+// createCustomer(...params);

@@ -109,9 +109,20 @@ export function bookTitleTransform(title: any): string {
 export function printBook(book: Book): void {
     console.log(`${book.title} by ${book.author}`)
 }
-export function getProperty(book: Book, prop: BookProperties): any {
+// export function getProperty(book: Book, prop: BookProperties): any {
+//     if (typeof book[prop] === 'function') {
+//         return (book[prop] as Function).name;
+//     }
+//     return book[prop];
+// }
+export function getProperty<TObject, TKey extends keyof TObject>(book: TObject, prop: TKey): TObject[TKey] | string {
     if (typeof book[prop] === 'function') {
-        return (book[prop] as Function).name;
+        return book[prop]['name'];
     }
     return book[prop];
+}
+
+/** Task 7 */
+export function purge<T>(inventory: T[]): T[] {
+    return inventory.slice(2);
 }
