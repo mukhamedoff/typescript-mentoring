@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { createCustomer, createCustomerID, сheckoutBooks, purge, getProperty } from "./functions";
+import { createCustomer, createCustomerID, сheckoutBooks, purge, getProperty, getBooksByCategory, logCategorySearch, getBooksByCategoryPromise, logSearchResults } from "./functions";
 import { Author, Book, Librarian, Logger, Magazine} from "./interfaces";
 import { PersonBook, BookRequiredFields, UpdatedBook, СreateCustomerFunctionType } from "./types";
 import { RefBook, Shelf, ReferenceItem, UniversityLibrarian } from "./classes/";
@@ -289,3 +289,26 @@ const l = new UniversityLibrarian();
 // e.copies = 10;
 // e.copies = 0;
 // e.copies = 1.1;
+
+//Task 9.01
+// console.log('Start')
+// getBooksByCategory(Category.JavaScript, logCategorySearch);
+// getBooksByCategory(Category.Software, logCategorySearch);
+// console.log('Finish')
+
+//Task 9.02
+console.log('Start')
+getBooksByCategoryPromise(Category.JavaScript)
+    .then(titles => {console.log(titles); return titles.length})
+    .then(numOfBooks => console.log(numOfBooks))
+    .catch(err => console.log(err));
+getBooksByCategoryPromise(Category.Software)
+    .then(titles => console.log(titles))
+    .catch(err => console.log(err));
+console.log('Finish')
+
+//Task 9.03
+console.log('Start')
+logSearchResults(Category.JavaScript);
+logSearchResults(Category.Software).catch(err => console.log(err));
+console.log('Finish')
