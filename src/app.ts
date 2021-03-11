@@ -229,18 +229,18 @@ const inventory: Book[] = [
 ];
 // console.log(purge<Book>(inventory));
 // console.log(purge([1,2,3,4,5]));
-const bookShelf = new Shelf<Book>();
-inventory.forEach(book => bookShelf.add(book));
-console.log(bookShelf.getFirst());
+// const bookShelf = new Shelf<Book>();
+// inventory.forEach(book => bookShelf.add(book));
+// console.log(bookShelf.getFirst());
 
-const magazines: Magazine[] = [
-    { title: 'Programming Language Monthly', publisher: 'Code Mags' },
-    { title: 'Literary Fiction Quarterly', publisher: 'College Press' },
-    { title: 'Five Points', publisher: 'GSU' }
-]
-const magazineShelf = new Shelf<Magazine>();
-magazines.forEach(magazine => magazineShelf.add(magazine));
-console.log(magazineShelf.getFirst());
+// const magazines: Magazine[] = [
+//     { title: 'Programming Language Monthly', publisher: 'Code Mags' },
+//     { title: 'Literary Fiction Quarterly', publisher: 'College Press' },
+//     { title: 'Five Points', publisher: 'GSU' }
+// ]
+// const magazineShelf = new Shelf<Magazine>();
+// magazines.forEach(magazine => magazineShelf.add(magazine));
+// console.log(magazineShelf.getFirst());
 
 //7.03
 // magazineShelf.printTitles();
@@ -264,3 +264,28 @@ console.log(magazineShelf.getFirst());
 // }
 // const params: Parameters<СreateCustomerFunctionType> = ['Anna'];
 // createCustomer(...params);
+
+//Task 8
+const l = new UniversityLibrarian();
+// l.name = 'Age';
+// console.log(l);
+// l['printLibrarian']();
+
+//task 8.03
+// l.assistFaculty = null;
+// l.teachCommunity = null;
+
+// task 8.04
+// const e = new RefBook(1, 'Unknown', 2021, 2);
+// e.printItem();
+
+//task 8.05, 8.06
+// l.name = 'Anna';
+// l.assistCustomer('Boris');
+// console.log(l);
+
+//task 8.07
+// const e = new RefBook(1, 'Unknown', 2021, 2);
+// e.copies = 10;
+// e.copies = 0;
+// e.copies = 1.1;
